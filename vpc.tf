@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = "true"
 
   tags =  merge(
-    var.vpc_tags,
+   var.vpc_tags,
     local.common_tags,
     {
        Name = "${var.project}-${var.environment}"
@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
   )
 }
 
-# IGW roboshop-dev
+#IGW roboshop-dev
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id  #association with VPC
 
@@ -36,7 +36,7 @@ availability_zone =  local.az_names[count.index]
 map_public_ip_on_launch = true
 
 tags = merge ( 
-  var.public_subnet_tags,
+ var.public_subnet_tags,
   local.common_tags,
   { 
    Name = "${var.project}-${var.environment}-public-${local.az_names[count.index]}" 
@@ -71,7 +71,7 @@ resource "aws_subnet" "database" {
   availability_zone =  local.az_names[count.index]
 
  tags = merge (
-   var.database_subnet_tags,
+  var.database_subnet_tags,
     local.common_tags,
    {
       Name = "${var.project}-${var.environment}-database-${local.az_names[count.index]}"
@@ -79,10 +79,11 @@ resource "aws_subnet" "database" {
  )
 } 
 
+# roboshop-dev
 resource "aws_eip" "nat" {
   domain   = "vpc"
   tags = merge (
-     var.eip_tags,
+    var.eip_tags,
      local.common_tags,
     {
       Name = "${var.project}-${var.environment}"
@@ -95,7 +96,7 @@ resource "aws_nat_gateway" "main" {
   subnet_id     = aws_subnet.public[0].id
 
   tags = merge (
-     var.nat_gateway_tags,
+    var.nat_gateway_tags,
      local.common_tags,
     {
       Name = "${var.project}-${var.environment}"
@@ -112,7 +113,7 @@ resource "aws_route_table" "public" {
 
    
  tags = merge (
-     var.public_route_table_tags,
+    var.public_route_table_tags,
      local.common_tags,
     {
       Name = "${var.project}-${var.environment}-public"
@@ -125,7 +126,7 @@ resource "aws_route_table" "private" {
 
    
  tags = merge (
-     var.private_route_table_tags,
+    var.private_route_table_tags,
      local.common_tags,
     {
       Name = "${var.project}-${var.environment}-private"
@@ -138,7 +139,7 @@ resource "aws_route_table" "database" {
 
    
  tags = merge (
-     var.database_route_table_tags,
+    var.database_route_table_tags,
      local.common_tags,
     {
       Name = "${var.project}-${var.environment}-database"

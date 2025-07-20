@@ -12,13 +12,13 @@ resource "aws_vpc_peering_connection" "default" {
     allow_remote_vpc_dns_resolution = true
   }
 
-    auto_accept = true # we are using same project so auto_accept is true
+  auto_accept = true # we are using same project so auto_accept is true
 
     tags = merge (
         var.vpc_peering_tags,
         local.common_tags,
         {
-            Name = "${var.project}-${var.environment}-default"
+          Name = "${var.project}-${var.environment}-default"
         }
     )
 }

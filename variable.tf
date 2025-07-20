@@ -45,11 +45,11 @@ variable "database_subnet_cidrs"{
 variable "database_subnet_tags"{
     type = map(string)
     default = {}
-} 
+}
 
 variable "eip_tags" {
-     type = map(string)
-     default = {}
+    type = map(string)
+    default = {}
 }
 
 variable "nat_gateway_tags" {
